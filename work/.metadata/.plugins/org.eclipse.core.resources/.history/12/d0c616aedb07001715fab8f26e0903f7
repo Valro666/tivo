@@ -1,0 +1,41 @@
+package rvb;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class main {
+
+	public static void main(String[] a) {
+
+		try {
+
+			String r = "", v = "", b = "";
+
+			int larg, lon;
+
+			File image = new File("arbreASCII.ppm");
+			FileReader fr = new FileReader(image);
+			BufferedReader buff = new BufferedReader(fr);
+
+			System.out.println(buff.readLine());
+			System.out.println(buff.readLine());
+			System.out.println(buff.readLine());
+			System.out.println(buff.readLine());
+
+			while (buff.read() > 0) {
+				
+				int a = buff.readLine();
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
