@@ -2,17 +2,31 @@ package rvb;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class main {
+
+	static int loop = 0;
+
+	static int loop() {
+
+		loop++;
+
+		if (loop > 3) {
+			loop = 1;
+		}
+		return loop;
+	}
 
 	public static void main(String[] a) {
 
 		try {
 
 			String r = "", v = "", b = "";
+			String tmp = "";
+
 			int ir, iv, ib;
 
 			int larg, lon;
@@ -21,23 +35,55 @@ public class main {
 			FileReader fr = new FileReader(image);
 			BufferedReader buff = new BufferedReader(fr);
 
-			System.out.println(buff.readLine());
-			System.out.println(buff.readLine());
-			System.out.println(buff.readLine());
-			System.out.println(buff.readLine());
+			tmp = tmp + buff.readLine() + "\n" + buff.readLine() + "\n"
+					+ buff.readLine() + "\n" + buff.readLine() + "\n";
 
-			while (buff.toString() != null) {
+			String s;
 
-				ir = Integer.valueOf(buff.readLine());
-				iv = Integer.valueOf(buff.readLine());
-				ib = Integer.valueOf(buff.readLine());
+			System.out.println(tmp);
 
-				r = r + "\n" + ir;
-				v = v + "\n" + iv;
-				b = b + "\n" + ib;
+			File rouge = new File("rouge.ppm");
+			rouge.createNewFile();
+			File bleu = new File("bleu.ppm");
+			bleu.createNewFile();
+			File vert = new File("vert.ppm");
+			vert.createNewFile();
+
+			FileWriter fwr = new FileWriter(rouge);
+			FileWriter fwb = new FileWriter(bleu);
+			FileWriter fwv = new FileWriter(vert);
+
+			fwr.write(tmp);
+			fwv.write(tmp);
+			fwb.write(tmp);
+
+			System.out.println(rouge.exists());
+			System.out.println(bleu.exists());
+			System.out.println(vert.exists());
+
+			while ((s = buff.readLine()) != null) {
+
+				switch (loop()) {
+
+				default:
+				case 1:
+					// r = r + s + " 0 0 \n";
+					fwr.write(s + " 0 0 \n");
+					break;
+				case 2:
+					// v = v + " 0 " + s + " 0 \n";
+					fwv.write(" 0 " + s + " 0 \n");
+					break;
+				case 3:
+					fwb.write(" 0 0 " + s + "\n");
+					// b = b + " 0 0 " + s + "\n";
+					break;
+				}
 
 			}
-			
+			fwr.close();
+			fwv.close();
+			fwb.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -45,5 +91,4 @@ public class main {
 		}
 
 	}
-
 }
