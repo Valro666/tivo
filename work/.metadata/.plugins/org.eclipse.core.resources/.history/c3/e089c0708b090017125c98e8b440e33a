@@ -1,0 +1,7 @@
+package rvb;
+
+public class Pixel {
+
+	public int red, green, blue;
+
+}

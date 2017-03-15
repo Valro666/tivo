@@ -37,16 +37,15 @@ public class Negatif {
 				System.exit(1);
 			}
 
-			String nom = image.getName().substring(0,
-					image.getName().indexOf("."));
+			String nom = image.getName().substring(0, image.getName().indexOf("."));
 
 			// System.out.println(nom);
 
 			FileReader fr = new FileReader(image);
 			BufferedReader buff = new BufferedReader(fr);
 
-			tmp = tmp + buff.readLine() + "\n" + buff.readLine() + "\n"
-					+ buff.readLine() + "\n" + buff.readLine() + "\n";
+			tmp = tmp + buff.readLine() + "\n" + buff.readLine() + "\n" + buff.readLine() + "\n" + buff.readLine()
+					+ "\n";
 
 			String s;
 
