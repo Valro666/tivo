@@ -3,27 +3,6 @@ import ij.plugin.filter.PlugInFilter;
 import ij.process.*;
 import java.awt.*;
 
-/** This sample ImageJ plugin filter inverts images.
-
-A few things to note:
-	1) Filter plugins must implement the PlugInFilter interface.
-	2) User plugins do not use the package statement;
-	3) Plugins residing in the "plugins" folder, and with at
-	least one underscore in their name, are automatically
-	installed in the PlugIns menu.
-	4) Plugins can be installed in other menus by 
-	packaging them as JAR files.
-	5) The class name ("Image_Inverter") and file name 
-	("Image_Inverter.java") must be the same.
-	6) This filter works with selections, including non-rectangular selections.
-	7) It will be called repeatedly to process all the slices in a stack.
-	8) It supports Undo for single images.
-	9) "~" is the bitwise complement operator.
-	10) It is slower than the built in Edit>Invert command,
-	which works directly with the pixel array, because of the
-	two time-consuming method calls in the inner loop.
-*/
-
 public class AffContraste_ implements PlugInFilter {
 
 	public int setup(String arg, ImagePlus imp) {
@@ -32,17 +11,33 @@ public class AffContraste_ implements PlugInFilter {
 
 	public void run(ImageProcessor ip) {
 		
-		IJ.log("gvhrsgbrkgrjzs");
+		double moyenne = 0 ;
+		int tot = 0 ;
 		
-		int moyenne = 0 ;
+		//Rectangle r = ip.getRoi();
 		
-		Rectangle r = ip.getRoi();
-		for (int y=r.y; y<(r.y+r.height); y++)
-			for (int x=r.x; x<(r.x+r.width); x++)
-				moyenne += ip.get(x,y);
-			
-		moyenne /= ((r.height)*(r.width));
-		IJ.log("moyenne : "+moyenne);
+		for (int y=0; y<ip.getHeight(); y++)
+			for (int x=0; x<ip.getWidth(); x++){	
+				moyenne = moyenne + (ip.getPixel(x,y)& 0xff);
+				tot++;
+				}
+				
+		moyenne = moyenne/tot;	
+		IJ.log("moyenne : "+moyenne);		
+		
+		
+		double res = moyenne;
+		
+		for (int y=0; y<ip.getHeight(); y++)
+			for (int x=0; x<ip.getWidth(); x++){
+				double tmp = (ip.getPixel(x,y)& 0xff)-moyenne;
+				res =res+ tmp*tmp;
+				}
+		
+		res = (1./(tot))*res;
+		res = Math.sqrt(res);
+		IJ.log("ecart type : "+res);
+	//*/
 	}
 
 }
