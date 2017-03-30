@@ -16,9 +16,9 @@ public class AffContraste_ implements PlugInFilter {
 		
 		//Rectangle r = ip.getRoi();
 		
-		for (int y=0; y<ip.getHeight(); y++)
-			for (int x=0; x<ip.getWidth(); x++){	
-				moyenne = moyenne + (ip.getPixel(x,y)& 0xff);
+		for (int x=0; x<ip.getHeight(); x++)
+			for (int y=0; y<ip.getWidth(); y++){	
+				moyenne = moyenne + (ip.getPixel(y,x)& 0xff);
 				tot++;
 				}
 				

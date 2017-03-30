@@ -11,8 +11,8 @@ public class Egalizateur_ implements PlugInFilter {
 
 	public void run(ImageProcessor ip) {
 		
-		int[] pixel = new int[256];
-		int tot = 0 ;
+		double [] pixel = new double[256];
+		double tot = 0 ;
 		
 		for(int x = 0; x < ip.getHeight();x++){
 			for(int y = 0; y < ip.getWidth();y++){
@@ -21,7 +21,7 @@ public class Egalizateur_ implements PlugInFilter {
 			}
 		}
 		
-		int[] r = new int[256];
+		double[] r = new double[256];
 		
 		for(int i =0;i<pixel.length;i++){
 			pixel[i]=pixel[i]/tot;
@@ -29,18 +29,15 @@ public class Egalizateur_ implements PlugInFilter {
 		
 		for(int i =0;i<r.length;i++){
 			for(int j =0;j<i;j++){
-					r[i]=r[j]+pixel[j];
+				r[i]=r[j]+pixel[j];
 			}
 		}
-		
-		
-		
+
 		for(int x = 0; x < ip.getHeight();x++){
 			for(int y = 0; y < ip.getWidth();y++){
-				ip.set(y,x,255*r[(ip.getPixel(x,y)& 0xff)]);
+				ip.set(y,x,(int)(255*r[(ip.getPixel(y,x)& 0xff)]));
 			}
-		}
-		
+		}		
 		/*
 		IJ.log("egalization");
 	//*/
