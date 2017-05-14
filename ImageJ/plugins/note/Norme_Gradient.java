@@ -12,7 +12,7 @@ public class Norme_Gradient implements PlugInFilter {
 	public void run(ImageProcessor ip) {
 
 		double [] pixel = new double[256];
-		int [][] image = new int[ ip.getWidth()][ ip.getHeight()];
+		int [][] image = new int[ ip.getWidth()+10][ ip.getHeight()+10];
 		double tot = 0 ;
 
 		double [][] sy ={{-1,0,1},{-2,0,2},{-1,0,1}};
@@ -68,20 +68,20 @@ public class Norme_Gradient implements PlugInFilter {
 				double ssx = a+b+c+d+e+f+g+h+i;
 				double ssy = j+k+l+m+n+o+p+q+r;
 
-
+/*
 				if(ssx>255){
 					ssx=255;
 				}
 				if(ssx<60){
 					ssx=0;
 				}
-
+/*
 				if(ssy>255){
 					ssy=255;
 				}
 				if(ssy<60){
 					ssy=0;
-				}
+				}*/
 
 
 				ssx = ssx*ssx;
@@ -91,16 +91,19 @@ public class Norme_Gradient implements PlugInFilter {
 
 				tmp = Math.abs(Math.sqrt(tmp));
 
-				if(tmp>255){
-					tmp = 255;
-				}
-
-				/*
-				if(tmp>50){
+				
+				
+				if(tmp>200){
 					tmp = 255 ;
 				}else{
 					tmp = 0;
-				}*/
+				}//*/
+				
+				/*
+				photo 200
+				
+				*/
+				
 
 				image[x][y] = (int)tmp ;
 				//image[x][y] = (int)ssy ;
@@ -109,8 +112,8 @@ public class Norme_Gradient implements PlugInFilter {
 			}
 		}
 
-		for(int y = 1; y < ip.getHeight()-1;y++){
-			for(int x = 1; x < ip.getWidth()-1;x++){
+		for(int x = 1; x < ip.getHeight()-1;x++){
+			for(int y = 1; y < ip.getWidth()-1;y++){
 
 
 				ip.set(x,y,image[x][y]);
